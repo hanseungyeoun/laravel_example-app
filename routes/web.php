@@ -28,11 +28,11 @@ Route::post('/articles', function (Request $request) {
         'body' => [
             'required',
             'string',
-            'max:255'
+            'max:50'
         ]
     ]);
 
-    return $request->input['body'];
+    return 'hello';
 });
 
 
