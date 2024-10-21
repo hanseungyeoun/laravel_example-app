@@ -23,9 +23,11 @@
 <body>
   <div class="container p-5">
     <h1 class="text-2xl">글쓰기</h1>
-    <form action="/articles/create" method="post" class="mt-5">
+    <form action="/articles" method="post" class="mt-5">
+      {{-- <input type="hidden" name='_token' value=<?php echo csrf_token();?>> --}}
+      @csrf
       <input type="text" class="block w-full mb-5">
-      <input type="button" class="py-1 px-3 bg-black text-white rounded text-xs" value="저장하기" >
+      <button class="py-1 px-3 bg-black text-white rounded text-xs">저장하기</button>
     </form>
   </div>
 </body>

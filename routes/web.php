@@ -21,4 +21,9 @@ Route::get('/articles/create', function () {
     return view('articles/create');
 });
 
+Route::post('/articles', function () {
+    return 'hello';
+});
+
+
 require __DIR__ . '/auth.php';
