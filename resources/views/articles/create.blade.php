@@ -31,9 +31,6 @@
       @enderror
       <button class="py-1 px-3 bg-black text-white rounded text-xs">저장하기</button>
     </form>
-    {{
-      dd();  
-    }}
-  </div>
+   </div>
 </body>
 </html>
