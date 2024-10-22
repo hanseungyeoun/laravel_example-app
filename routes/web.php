@@ -43,21 +43,16 @@ Route::post('/articles', function (Request $request) {
 });
 
 Route::get('/articles', function (Request $request) {
-    $perPage = $request->input('per_page', 2);;
-    $totalCount = Article::count();
+    $perPage = $request->input('per_page', 4);;
 
-    $articles = Article::latest()
+    $articles = Article::with('user')
+        ->latest()
         ->paginate($perPage);
-
-    $articles->withQueryString();
-    $articles->appends(['filter' => 'name']);
 
     return view(
         'articles/index',
         [
-            'articles' => $articles,
-            'totalCount' => $totalCount,
-            'perPage' => $perPage
+            'articles' => $articles
         ]
     );
 });
