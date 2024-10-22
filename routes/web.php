@@ -43,8 +43,24 @@ Route::post('/articles', function (Request $request) {
 });
 
 Route::get('/articles', function (Request $request) {
-    $articles = Article::all();
-    return view('articles/index', ['articles' => $articles]);
+    $page = $request->input('page', 1);
+    $perPage = $request->input('per_page', 2);;
+    $offset = ($page - 1) * $perPage;
+    $totalCount = Article::count();
+
+    $articles = Article::latest()
+        ->offset($offset)
+        ->limit($perPage)
+        ->get();
+    return view(
+        'articles/index',
+        [
+            'articles' => $articles,
+            'totalCount' => $totalCount,
+            'page' => $page,
+            'perPage' => $perPage
+        ]
+    );
 });
 
 require __DIR__ . '/auth.php';
