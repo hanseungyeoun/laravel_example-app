@@ -14,7 +14,9 @@
     @foreach ($articles as $article)
       <div class="background-white border rounded mb-3 p-3">
         <p>{{$article->body}}</p>
-        <p>{{$article->created_at}}</p>
+        {{-- <p>{{$article->created_at->format('Y년 m월 d일 H:i:s')}}</p> --}}
+        <p>{{$article->created_at->diffForHumans()}}</p>
+        <p>{{$article->user->name}}</p>
       </div>
     @endforeach
     <div class="container p-5">
