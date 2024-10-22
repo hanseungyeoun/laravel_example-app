@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,26 +36,46 @@ Route::post('/articles', function (Request $request) {
     ]);
     //pda 객체를 생성 
     // $conn = new PDO("mysql:host=호스트명;dbname=데이터베이스명", 사용자명, 패스워드);
-    $host = config('database.connections.mysql.host');
-    $database = config('database.connections.mysql.database');
-    $username = config('database.connections.mysql.username');
-    $password = config('database.connections.mysql.password');
-    $conn = new PDO("mysql:host={$host};dbname={$database}", $username, $password);
+    // $host = config('database.connections.mysql.host');
+    // $database = config('database.connections.mysql.database');
+    // $username = config('database.connections.mysql.username');
+    // $password = config('database.connections.mysql.password');
+    // $conn = new PDO("mysql:host={$host};dbname={$database}", $username, $password);
 
-    //쿼리 준비 
-    $body = $request->input('body');
-    $stmt = $conn->prepare("insert into articles (body, user_id) values (:body ,:userId)");
+    // //쿼리 준비 
+    // $body = $request->input('body');
+    // $stmt = $conn->prepare("insert into articles (body, user_id) values (:body ,:userId)");
 
-    //퀄리 값을 설정 
-    $stmt->bindValue(':body', $input['body']);
-    // $stmt->bindValue(':userId', $request->user()->id);
-    // $stmt->bindValue(':userId', Auth::user()->id);
-    $stmt->bindValue(':userId', Auth::id());
-
-
+    // //퀄리 값을 설정 
+    // $stmt->bindValue(':body', $input['body']);
+    // // $stmt->bindValue(':userId', $request->user()->id);
+    // $stmt->bindValue(':userId', Auth::id());
 
     //실행
-    $stmt->execute();
+    // $stmt->execute();
+
+    //db 파사드 이용 
+    DB::statement("insert into articles (body, user_id) values (:body ,:userId)", ['body' => $input['body'], 'userId' => Auth::id()]);
+
+    //퀄리 빌더 사용 하는 방법 
+    // DB::table('articles')->insert([
+    //     'body' => $input['body'],
+    //     'user_id' => Auth::id()
+    // ]);
+
+    // orm 이용하기 
+    // $article = new Article();
+    // $article->body = $input['body'];
+    // $article->user_id = Auth::id();
+    // $article->save();
+
+    Article::create([
+        'body' => $input['body'],
+        'user_id' => Auth::id()
+    ]);
+
+
+
     return 'hello';
 });
 
