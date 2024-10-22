@@ -17,11 +17,9 @@
         <p>{{$article->created_at}}</p>
       </div>
     @endforeach
-    <ul>
-      @for ($i = 0; $i < $totalCount/$perPage; $i++) 
-        <li><a href="/articles?page={{$i+1}}&per_page={{$perPage}}">{{$i+1}} </a> </li>
-      @endfor
-    </ul>
+    <div class="container p-5">
+      {{$articles->links()}}
+    </div>
   </div>
 </body>
 
