@@ -16,6 +16,21 @@
         <p>{{$article->body}}</p>
         <p>{{$article->user->name}}</p>
         <p><a href="{{route('articles.create', ['article'=>$article->id])}}">{{$article->created_at->diffForHumans()}}</a></p>
+        <div class="flex flex-row mt-2">
+          <p class="mr-1">
+            <a  
+              class="boutton rounded bg-blue-500 px-2 py-1 text-xs color-white"
+              href="{{route('articles.edit', ['article'=>$article->id])}}">
+              수정
+            </a>
+          </p>
+          <form action="{{route('articles.delete',  ['article'=>$article->id])}}" method="POST">
+            @csrf
+            @method("delete")
+            <button class="py-1 px-3 bg-red-500 text-white rounded text-xs">삭제</button>
+          </form>
+        </div>
+
       </div>
     @endforeach
     <div class="container p-5">
