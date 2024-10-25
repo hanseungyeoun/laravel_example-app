@@ -57,4 +57,8 @@ Route::get('/articles', function (Request $request) {
     );
 });
 
+Route::get('/articles/{article}', function (Article $article) {
+    return view('articles.show', ['article' =>  $article]);
+});
+
 require __DIR__ . '/auth.php';
