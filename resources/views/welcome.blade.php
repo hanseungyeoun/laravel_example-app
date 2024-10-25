@@ -64,7 +64,10 @@
                             쇼셜 미디어 앱
                         </div>
                         <div>
-                            <a href="/articles/create">글쓰기</a>
+                            <a href="{{route('articles.create')}}">글쓰기</a>
+                        </div>
+                        <div>
+                            <a href="{{route('articles.index')}}">글목록</a>
                         </div>
                     </main>
 

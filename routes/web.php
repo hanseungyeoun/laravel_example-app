@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/articles/create', function () {
     return view('articles/create');
-});
+})->name('articles.create');
 
 Route::post('/articles', function (Request $request) {
     //비어 있지 않고, 문자열이고, 255자를 넘으면 안된다. 
@@ -40,7 +40,7 @@ Route::post('/articles', function (Request $request) {
         'user_id' => Auth::id()
     ]);
     return 'hello';
-});
+})->name('articles.store');
 
 Route::get('/articles', function (Request $request) {
     $perPage = $request->input('per_page', 4);;
@@ -55,10 +55,10 @@ Route::get('/articles', function (Request $request) {
             'articles' => $articles
         ]
     );
-});
+})->name('articles.index');
 
 Route::get('/articles/{article}', function (Article $article) {
     return view('articles.show', ['article' =>  $article]);
-});
+})->name('articles.show');
 
 require __DIR__ . '/auth.php';

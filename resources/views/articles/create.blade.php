@@ -16,7 +16,7 @@
 <body>
   <div class="container p-5">
     <h1 class="text-2xl">글쓰기</h1>
-    <form action="/articles" method="post" class="mt-5">
+    <form action="{{route('articles.store')}}" method="post" class="mt-5">
       @csrf
       <input type="text" name='body' class="block w-full mb-5" value="{{old('body')}}">
       @error('body')
@@ -24,6 +24,6 @@
       @enderror
       <button class="py-1 px-3 bg-black text-white rounded text-xs">저장하기</button>
     </form>
-   </div>
+  </div>
 </body>
 </html>
