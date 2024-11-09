@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -62,11 +63,16 @@ class ArticleController extends Controller implements HasMiddleware
 
     public function edit(Article $article)
     {
+        Gate::authorize('update', $article);
         return view('articles.edit', ['article' =>  $article]);
     }
 
     public function update(Request $request, Article $article)
     {
+        // if (Auth::user()->can('update', $article)) {
+        //     abort(403);
+        // }
+        Gate::authorize('update', $article);
         $input = $request->validate([
             'body' => [
                 'required',
@@ -82,6 +88,7 @@ class ArticleController extends Controller implements HasMiddleware
 
     public function destroy(Article $article)
     {
+        Gate::authorize('delete', $article);
         $article->delete();
         return redirect()->route('articles.index');
     }

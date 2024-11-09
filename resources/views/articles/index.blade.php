@@ -11,6 +11,7 @@
         <p>{{$article->user->name}}</p>
         <p><a href="{{route('articles.create', ['article'=>$article->id])}}">{{$article->created_at->diffForHumans()}}</a></p>
         <div class="flex flex-row mt-2">
+          @can('update', $article)
           <p class="mr-1">
             <a  
               class="boutton rounded bg-blue-500 px-2 py-1 text-xs color-white"
@@ -18,11 +19,14 @@
               수정
             </a>
           </p>
+          @endcan
+          @can('delete', $article)
           <form action="{{route('articles.destroy',  ['article'=>$article->id])}}" method="POST">
             @csrf
             @method("delete")
             <button class="py-1 px-3 bg-red-500 text-white rounded text-xs">삭제</button>
           </form>
+          @endcan
         </div>
 
       </div>
