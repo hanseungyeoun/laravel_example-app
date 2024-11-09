@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 //     Route::get('/articles/{article}', 'show')->name('articles.show');
 //     Route::get('/articles/{article}/edit', 'edit')->name('articles.edit');
 //     Route::patch('/articles/{article}', 'update')->name('articles.update');
-//     Route::delete('/articles/{article}', 'destroy')->name('articles.delete');
+//     Route::delete('/articles/{article}', 'destroy')->name('articles.destroy');
 // });
 
 Route::resource('articles', ArticleController::class);
